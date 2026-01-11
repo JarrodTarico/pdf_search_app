@@ -1,5 +1,5 @@
 import React from 'react';
-import { SearchResult } from '../types';
+import type { SearchResult } from '../types';
 
 interface SearchResultsProps {
   results: SearchResult[];

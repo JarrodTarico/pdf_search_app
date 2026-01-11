@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { uploadPDFs } from '../api';
-import { PDFUploadResult, UploadError } from '../types';
+import type { PDFUploadResult, UploadError } from '../types';
 
 interface FileUploadProps {
   onUploadSuccess: (results: PDFUploadResult[]) => void;

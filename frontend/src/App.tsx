@@ -3,7 +3,7 @@ import { FileUpload } from './components/FileUpload';
 import { SearchBar } from './components/SearchBar';
 import { SearchResults } from './components/SearchResults';
 import { searchPDFs } from './api';
-import { PDFUploadResult, SearchResult } from './types';
+import type { PDFUploadResult, SearchResult } from './types';
 import './App.css';
 
 function App() {

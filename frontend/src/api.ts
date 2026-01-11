@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { UploadResponse, SearchResponse } from './types';
+import type { UploadResponse, SearchResponse } from './types';
 
 const API_BASE_URL = 'http://localhost:8000';
 
