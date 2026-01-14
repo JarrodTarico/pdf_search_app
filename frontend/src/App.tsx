@@ -79,7 +79,7 @@ function App() {
       </main>
 
       <footer className="app-footer">
-        <p>PDF Search App - Built with React + FastAPI</p>
+        <p>Jarrod PDF Search App</p>
       </footer>
     </div>
   );

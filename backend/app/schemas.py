@@ -22,6 +22,7 @@ class SearchResult(BaseModel):
     pdf_id: str
     filename: str
     confidence_score: float
+    sentiment_score: float
     snippet: str
 
 

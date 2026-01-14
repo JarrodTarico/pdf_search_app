@@ -18,6 +18,7 @@ export interface SearchResult {
   pdf_id: string;
   filename: string;
   confidence_score: number;
+  sentiment_score: number;
   snippet: string;
 }
 

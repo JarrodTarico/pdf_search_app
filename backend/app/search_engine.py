@@ -3,8 +3,16 @@ from typing import List, Tuple
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
+import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 from .database import get_all_pdfs
+
+# Download VADER lexicon if not already present
+try:
+    nltk.data.find('sentiment/vader_lexicon.zip')
+except LookupError:
+    nltk.download('vader_lexicon', quiet=True)
 
 
 class SearchEngine:
@@ -19,6 +27,20 @@ class SearchEngine:
         )
         self.tfidf_matrix = None
         self.documents = []
+        self.sentiment_analyzer = SentimentIntensityAnalyzer()
+    
+    def _calculate_sentiment(self, text: str) -> float:
+        """
+        Calculate sentiment score for a text snippet using VADER.
+        
+        Args:
+            text: The text to analyze
+            
+        Returns:
+            Compound sentiment score from -1 (negative) to 1 (positive)
+        """
+        scores = self.sentiment_analyzer.polarity_scores(text)
+        return round(scores['compound'], 4)
     
     def _build_index(self) -> None:
         """Build or rebuild the TF-IDF index from all documents in the database."""
@@ -65,11 +87,13 @@ class SearchEngine:
             if score > 0:
                 doc = self.documents[idx]
                 snippet = self._extract_snippet(doc['text_content'], query)
+                sentiment_score = self._calculate_sentiment(snippet)
                 
                 results.append({
                     'pdf_id': doc['id'],
                     'filename': doc['filename'],
                     'confidence_score': round(score, 4),
+                    'sentiment_score': sentiment_score,
                     'snippet': snippet
                 })
         

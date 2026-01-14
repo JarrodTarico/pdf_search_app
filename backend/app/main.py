@@ -133,6 +133,7 @@ async def search_pdfs(search_query: SearchQuery):
             pdf_id=r['pdf_id'],
             filename=r['filename'],
             confidence_score=r['confidence_score'],
+            sentiment_score=r['sentiment_score'],
             snippet=r['snippet']
         )
         for r in results

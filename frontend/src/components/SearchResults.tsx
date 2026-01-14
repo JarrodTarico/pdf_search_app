@@ -25,6 +25,18 @@ export function SearchResults({ results, query }: SearchResultsProps) {
     return 'low';
   };
 
+  const formatSentiment = (score: number): string => {
+    if (score >= 0.05) return 'Positive';
+    if (score <= -0.05) return 'Negative';
+    return 'Neutral';
+  };
+
+  const getSentimentClass = (score: number): string => {
+    if (score >= 0.05) return 'positive';
+    if (score <= -0.05) return 'negative';
+    return 'neutral';
+  };
+
   const highlightSnippet = (snippet: string, query: string): React.ReactNode => {
     const terms = query.toLowerCase().split(/\s+/).filter((t) => t.length > 1);
     if (terms.length === 0) return snippet;
@@ -70,8 +82,13 @@ export function SearchResults({ results, query }: SearchResultsProps) {
                 </svg>
                 <span>{result.filename}</span>
               </div>
-              <div className={`confidence-badge ${getConfidenceClass(result.confidence_score)}`}>
-                {formatConfidence(result.confidence_score)} match
+              <div className="badges">
+                <div className={`confidence-badge ${getConfidenceClass(result.confidence_score)}`}>
+                  {formatConfidence(result.confidence_score)} match
+                </div>
+                <div className={`sentiment-badge ${getSentimentClass(result.sentiment_score)}`}>
+                  {formatSentiment(result.sentiment_score)}
+                </div>
               </div>
             </div>
             <div className="result-snippet">
